@@ -1,0 +1,3 @@
+[dtqueryControllers]
+localhost ansible_connection=local
+

@@ -1,0 +1,36 @@
+---
+- name: Compile shostMatrix and deploy.
+  ansible.builtin.template:
+    src: templates/shosts.j2
+    dest: /root/.shosts
+    owner: root
+    group: root
+    force: true
+    mode: 0644
+    backup: true
+  when: shostMatrix is defined  and shostMatrix|length > 0
+  register: shostsFile
+
+- name: Clean backups
+  block:
+    - name: Check for existing backups
+      find:
+        paths: /root
+        patterns: 'shosts.*.*-*-*@*:*:*'
+      register: result
+
+    - name: Sort backups list
+      set_fact:
+        my_files: "{{ result.files|
+                    sort(attribute='mtime')|
+                    map(attribute='path')|
+                    list }}"
+
+    - name: Trim backups
+      file:
+        state: absent
+        path: "{{ item }}"
+      loop: "{{ my_files[0:-2] }}"
+
+  when: shostsFile.changed
+
