@@ -1,7 +1,0 @@
-# {{ ansible_managed }}
-
-{% for client in shostMatrix %}
-{% for item in shostMatrix[client] %}
-{{ client }} {{ item }}
-{% endfor %}
-{% endfor %}
