@@ -2,4 +2,4 @@
 - name: Collect Facts from target host.
   hosts: all
   tasks:
-  - setup:
+    - setup:
