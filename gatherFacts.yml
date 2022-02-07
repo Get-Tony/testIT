@@ -1,6 +1,6 @@
 ---
 - name: Collect Facts from target host.
   hosts: all
-  gather_facts: true
+  become: true
   tasks:
-    setup:
+    - setup:
