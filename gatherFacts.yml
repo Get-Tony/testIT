@@ -1,6 +1,6 @@
 ---
 - name: Collect Facts from target host.
   hosts: all
-  become: root
+  become: true
   tasks:
     - setup:
